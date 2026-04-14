@@ -49,16 +49,3 @@ This dashboard allows users to:
 
 This project is for educational purposes only.
 It does not provide financial advice.
-
----
-
-## 📸 Screenshots
-
-(Add screenshots here after running the app)
-
----
-
-## 💼 Author
-
-Your Name
-(Add your LinkedIn / GitHub link here)

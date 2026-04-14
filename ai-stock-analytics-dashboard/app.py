@@ -141,18 +141,25 @@ CHART_THEME = dict(
 # ──────────────────────────────────────────────────────────────
 # DATA FETCHING
 # ──────────────────────────────────────────────────────────────
-@st.cache_data(ttl=300, show_spinner=False)
-def fetch_stock_data(ticker: str, period: str) -> pd.DataFrame:
-    """Download OHLCV data from Yahoo Finance. Returns empty df on failure."""
+    @st.cache_data(ttl=300)
+def fetch_data(ticker, period):
     try:
-        df = yf.download(ticker, period=period, auto_adjust=True, progress=False)
-        if df.empty:
+        df = yf.download(
+            ticker,
+            period=period,
+            auto_adjust=True,
+            progress=False,
+            threads=False
+        )
+
+        if df is None or df.empty:
             return pd.DataFrame()
-        df.columns = [c[0] if isinstance(c, tuple) else c for c in df.columns]
-        df.index = pd.to_datetime(df.index)
+
         df.dropna(inplace=True)
         return df
-    except Exception:
+
+    except Exception as e:
+        st.error(f"Error fetching data: {e}")
         return pd.DataFrame()
 
 

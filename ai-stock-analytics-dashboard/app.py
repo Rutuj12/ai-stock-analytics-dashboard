@@ -141,7 +141,7 @@ CHART_THEME = dict(
 # ──────────────────────────────────────────────────────────────
 # DATA FETCHING
 # ──────────────────────────────────────────────────────────────
-    @st.cache_data(ttl=300)
+@st.cache_data(ttl=300)
 def fetch_data(ticker, period):
     try:
         df = yf.download(
